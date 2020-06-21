@@ -15,12 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag nucklehead/docker-hovercraft:${{ github.run_id }}
+      run: docker build . --file Dockerfile --tag nucklehead/docker-hovercraft:${{ github.run_id }} && docker docker tag nucklehead/docker-hovercraft:${{ github.run_id }} nucklehead/docker-hovercraft:latest
     
     - uses: actions/checkout@v2
-    - name: Publish to Registry
+    - name: Publish to Registry ${{ github.run_id }}
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: nucklehead/docker-hovercraft:${{ github.run_id }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Publish to Registry Latest
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: nucklehead/docker-hovercraft:latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
