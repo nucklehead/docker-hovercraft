@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag nucklehead/docker-hovercraft:${{ github.run_id }} && docker docker tag nucklehead/docker-hovercraft:${{ github.run_id }} nucklehead/docker-hovercraft:latest
+      run: docker build . --file Dockerfile --tag nucklehead/docker-hovercraft:${{ github.run_id }} && docker tag nucklehead/docker-hovercraft:${{ github.run_id }} nucklehead/docker-hovercraft:latest
     
     - uses: actions/checkout@v2
     - name: Publish to Registry ${{ github.run_id }}
